@@ -26,24 +26,24 @@ const stripeKey = stripe("sk_test_51OY4oHFpIbLv69oWgWy6ZGyP1NUI81zEisbANOl1kfJRa
 const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1', //this is the same thing as home, local host 
-    port: 5432,
-    user: 'postgres',
-    password: 'cookies',
-    database: 'store-app'
+    host: 'monorail.proxy.rlwy.net', //this is the same thing as home, local host 
+    port: 21681,
+    user: 'postgres', //user and maintenance user
+    password: '-4aaa2E5e*--dBEaDg*-DeG51BC-2aED',
+    database: 'railway' //database name
   }
 });
 
 
-app.get("/", (req, res) => { res.send("Server is Online") })
+app.get("/", (req, res) => { res.send("Server is Online") });
 
-app.post("/checkout", (req, res, next) => { handleCheckout(req, res, next, stripeKey) })
+app.post("/checkout", (req, res, next) => { handleCheckout(req, res, next, stripeKey) });
 
 app.post("/register", (req, res) => { handleRegister(req, res, db, bcrypt, jwt) });
 
-app.post("/signin", (req, res) => { handleSignin(req, res, db, bcrypt, jwt) })
+app.post("/signin", (req, res) => { handleSignin(req, res, db, bcrypt, jwt) });
 
-app.post('/store-api/cart/add', (req, res) => { addToCart(req, res, db) })
+app.post('/store-api/cart/add', (req, res) => { addToCart(req, res, db) });
 
 app.get('/store-api/cart/:userId', (req, res) => { getCartItems(req, res, db) });
 
