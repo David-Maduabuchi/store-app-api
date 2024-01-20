@@ -1,5 +1,6 @@
 const addQuantity = (req, res, db) => {
     const { product, price, name, quantity, id } = req.body.item;
+    
     db('cart_items')
         .insert({
             user_id: req.body.user_id,
@@ -11,7 +12,7 @@ const addQuantity = (req, res, db) => {
         })
         .onConflict(['user_id', 'id'])
         .merge({
-            quantity: db.raw('cart_items.quantity + 1')
+            quantity: db.raw('cart_items.quantity + EXCLUDED.quantity')
         })
         .returning('*')
         .then(cartItem => {

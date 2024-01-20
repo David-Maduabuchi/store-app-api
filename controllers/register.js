@@ -1,6 +1,5 @@
 const handleRegister = (req, res, db, bcrypt, jwt) => {
   const { username, email, password } = req.body;
-  console.error(req.body);
   if (!email || !password || !username) {
     return res.status(400).json("error");
   }
@@ -17,10 +16,8 @@ const handleRegister = (req, res, db, bcrypt, jwt) => {
     return jwt.sign(payload, 'your_secret_key', options);
   }
   
-  console.error('i REACHED HERE')
   const hash = bcrypt.hashSync(password);
   db.transaction((trx) => {
-    console.error('insertion started')
     // Insert into 'login' table
     trx.insert({
       password: hash,
