@@ -57,7 +57,7 @@ const handleRegister = (req, res, db, bcrypt, jwt) => {
             } else {
               // Other error, log and respond with a generic message
               console.error('Error during user registration:', err);
-              res.status(500).json('An error occurred');
+              res.status(500).json('An error occurred before second error');
             }
             trx.rollback();
           });
