@@ -48,10 +48,10 @@ const handleRegister = (req, res, db, bcrypt, jwt) => {
           })
           .catch((err) => {
             // Rollback the transaction on error
-            if (err.code === '23505' && err.constraint === 'users_username_key') {
+            if (err.code === '23505' && err.constraint === 'users_unique_username') {
               // Custom error response for duplicate username
               res.status(400).json("Username already exists");
-            } else if (err.code === '23505' && err.constraint === 'users_email_key') {
+            } else if (err.code === '23505' && err.constraint === 'users_unique_email') {
               // Custom error response for duplicate email
               res.status(400).json("Email already exists");
             } else {
