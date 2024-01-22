@@ -66,6 +66,8 @@ const handleRegister = (req, res, db, bcrypt, jwt) => {
         // Custom error response for duplicate email in 'login' table
         if (err.code === '23505' && err.constraint === 'login_email_key') {
           res.status(400).json("Email already exists");
+        } else if (err.code === '23505' && err.constraint === 'unique_username') {
+          res.status(400).json("Username already exists")
         } else {
           // Other error, log and respond with a generic message
           console.error('Error during login insertion:', err);
